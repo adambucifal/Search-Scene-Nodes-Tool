@@ -87,7 +87,8 @@ class SearchSceneNodes(QtWidgets.QDialog):
 		self.nodetype_cb.setEditable(True)
 		self.nodetype_cb.setInsertPolicy(QtWidgets.QComboBox.NoInsert)
 		self.nodetype_cb.completer().setCompletionMode(QtWidgets.QCompleter.PopupCompletion)
-
+		
+		self.clear_nodetype_btn = QtWidgets.QPushButton("Clear Node Type")
 		self.reload_nodes_btn = QtWidgets.QPushButton("Reload Scene Nodes")
 		
 		self.display_nodes_lw = QtWidgets.QListWidget()
@@ -102,7 +103,8 @@ class SearchSceneNodes(QtWidgets.QDialog):
 		"""
 		grid_layout = QtWidgets.QGridLayout()
 		grid_layout.addWidget(self.nodetype_cb, 0, 0)
-		grid_layout.addWidget(self.reload_nodes_btn, 0, 1)
+		grid_layout.addWidget(self.clear_nodetype_btn, 0, 1)
+		grid_layout.addWidget(self.reload_nodes_btn, 0, 2)
 		
 		form_layout = QtWidgets.QFormLayout()
 		form_layout.addRow("Filter node type", grid_layout)
@@ -122,6 +124,9 @@ class SearchSceneNodes(QtWidgets.QDialog):
 		self.search_le.textChanged.connect(self.update_display_nodes)
 		self.display_nodes_lw.itemSelectionChanged.connect(self.item_selection_changed)
 		self.nodetype_cb.currentIndexChanged.connect(self.update_node_type)
+		self.clear_nodetype_btn.clicked.connect(
+			lambda: search_scene_nodes_win.nodetype_cb.setCurrentIndex(0)
+		)
 		self.reload_nodes_btn.clicked.connect(self.reload_scene_nodes)
 	
 	
@@ -205,3 +210,4 @@ if __name__ == "__main__":
 		
 	search_scene_nodes_win = SearchSceneNodes()
 	search_scene_nodes_win.show()
+	
