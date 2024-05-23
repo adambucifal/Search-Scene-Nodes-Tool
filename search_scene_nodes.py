@@ -27,7 +27,7 @@ class SearchSceneNodes(QtWidgets.QDialog):
 	last_sel_node_type: str = NO_NODETYPE
 	
 	ALL_NODETYPES: list[str] = cmds.allNodeTypes()
-	NODETYPES_DISPLAY: list[str] = [last_sel_node_type] + ALL_NODETYPES
+	NODETYPES_DISPLAY: list[str] = [NO_NODETYPE] + ALL_NODETYPES
 	
 	ui_instance = None
 	
@@ -157,6 +157,7 @@ class SearchSceneNodes(QtWidgets.QDialog):
 		:return: None
 		"""
 		self.update_display_nodes()
+		self.reload_scene_nodes()
 
 	
 	def filter_node_type(self, node_type: str) -> None:
